@@ -1,0 +1,12 @@
+/*.txt
+*.html
+*.o
+reconstitueReseauBIS
+mainComparaison
+chaineMain
+SVGwriter/SVGwriter.o
+Reseau/Reseau.o
+Hachage/Hachage.o
+Chaines/Chaine.o
+ArbreQuat/ArbreQuat.o
+.vscode
