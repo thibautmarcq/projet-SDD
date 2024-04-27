@@ -15,13 +15,13 @@
 
 int main(int argc, char** argv){
     srand(time(NULL));
-    if(argc != 3){
+    if(argc != 2){
         printf("Usage: %s <fichier .cha> <1-liste, 2-table de hachage, 3-arbre>\n", argv[0]);
         return 1;
     }
     
-    if(atoi(argv[2]) == 1){
-        Chaines* ch = generationAleatoire(2, 10, 500, 500);
+    if(atoi(argv[1]) == 1){
+        Chaines* ch = generationAleatoire(500, 100, 5000, 5000);
         Reseau* R = reconstitueReseauListe(ch);
         FILE* fwrite = fopen("txtReseauBIS.txt", "w");
         ecrireReseau(R, fwrite);
@@ -31,9 +31,9 @@ int main(int argc, char** argv){
         libererChaine(ch);
     }
 
-    if(atoi(argv[2]) == 2){
-        Chaines* ch = generationAleatoire(2, 10, 500, 500);
-        Reseau* R = reconstitueReseauHachage(ch, 50);
+    if(atoi(argv[1]) == 2){
+        Chaines* ch = generationAleatoire(500, 100, 5000, 5000);
+        Reseau* R = reconstitueReseauHachage(ch, 5000);
         FILE* fwrite = fopen("txtHachageBIS.txt", "w");
         ecrireReseau(R, fwrite);
         fclose(fwrite);

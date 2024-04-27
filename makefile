@@ -12,10 +12,10 @@ PROGRAMS = chaineMain reconstitueReseau mainComparaison reconstitueReseauBIS
 
 all: $(PROGRAMS)
 
-chaineMain: SVGwriter/SVGwriter.o Chaines/Chaine.o ChaineMain.c
+chaineMain: SVGwriter/SVGwriter.o Chaines/Chaine.o chaineMain.c
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
-reconstitueReseau:  SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hachage/Hachage.o ArbreQuat/ArbreQuat.o ReconstitueReseau.c
+reconstitueReseau:  SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hachage/Hachage.o ArbreQuat/ArbreQuat.o reconstitueReseau.c
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
 mainComparaison: SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hachage/Hachage.o ArbreQuat/ArbreQuat.o mainComparaison.c

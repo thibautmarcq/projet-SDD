@@ -36,7 +36,7 @@ int main(int argc, char** argv){
 
     if(atoi(argv[2]) == 2){
         Chaines* ch = lectureChaines(fread);
-        Reseau* R = reconstitueReseauHachage(ch, 15);
+        Reseau* R = reconstitueReseauHachage(ch, 10000);
         FILE* fwrite = fopen("txtHachage.txt", "w");
         ecrireReseau(R, fwrite);
         fclose(fwrite);

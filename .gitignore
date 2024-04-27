@@ -9,4 +9,5 @@ Reseau/Reseau.o
 Hachage/Hachage.o
 Chaines/Chaine.o
 ArbreQuat/ArbreQuat.o
+reconstitueReseau
 .vscode
