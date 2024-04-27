@@ -32,7 +32,7 @@ int main(int argc, char** argv){
     }
 
     if(atoi(argv[1]) == 2){
-        Chaines* ch = generationAleatoire(1, 2, 5000, 5000);
+        Chaines* ch = generationAleatoire(10, 20, 5000, 5000);
         Reseau* R = reconstitueReseauArbre(ch);
         FILE* fwrite = fopen("txtArbreBIS.txt", "w");
         ecrireReseau(R, fwrite);

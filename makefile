@@ -57,5 +57,5 @@ File/Struct_File.o : File/Struct_File.c
 
 clean:
 	rm -f *.o *~ $(PROGRAMS)
-	rm -f SVGwriter/*.o Chaines/*.o Reseau/*.o Hachage/*.o
+	rm -f SVGwriter/*.o Chaines/*.o Reseau/*.o Hachage/*.o ArbreQuat/*.o File/*.o
 	rm -f *.html *.txt

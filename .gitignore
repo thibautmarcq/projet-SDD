@@ -9,6 +9,7 @@ Reseau/Reseau.o
 Hachage/Hachage.o
 Chaines/Chaine.o
 ArbreQuat/ArbreQuat.o
+File/*.o
 reconstitueReseau
 .vscode
 mainGraphe
