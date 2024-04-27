@@ -79,17 +79,20 @@ void insererNoeudArbre(Noeud* n, ArbreQuat** a, ArbreQuat* parent){
         (*a)->noeud = n;
         if(g == 1 && h == 1){
             parent->no = *a;
+            return;
         }
         if(g==1 && h==0){
             parent->so = *a;
+            return;
         } 
         if(g == 0 && h == 0){
             parent->se = *a;
+            return;
         } 
         if(g == 0 && h == 1){
             parent->ne = *a;
+            return;
         }
-        return;
     }
     //////////////////
     if((*a)->noeud != NULL){ // Feuille
@@ -164,7 +167,7 @@ Reseau* reconstitueReseauArbre(Chaines* C){
     res->gamma = C->gamma; // recup du gamma de la chaine
     res->commodites = NULL;
     res->noeuds = NULL;
-    CellCommodite* com = NULL; //faut d ́eterminer, de manière récursive, dans quelle cellule de l’arbre placer le nœud du réseau*/
+    CellCommodite* com = NULL; 
 
     double xmin, ymin, xmax, ymax;
     chaineCoordMinMax(C,&xmin,&ymin,&xmax,&ymax);
