@@ -70,7 +70,7 @@ int main(int argc, char** argv){
     
     srand(time(NULL));
 
-    printf("i\tChaine\tHachage5000\tHachage50000\n");
+    printf("i\tChaine\tHachage50\tHachage500\tArbre\n");
     for(int i = 500; i<=5000; i+=500){
         Chaines* ch = generationAleatoire(i, 100, 5000, 5000);
         // Temps chaines
@@ -82,28 +82,28 @@ int main(int argc, char** argv){
 
         // Temps hachage 1
         temps_initH1 = clock();
-        Reseau* RH1 = reconstitueReseauHachage(ch, 5000);
+        Reseau* RH1 = reconstitueReseauHachage(ch, 50);
         temps_finH1 = clock ();
         temps_totH1 = ((double)(temps_finH1 - temps_initH1))/CLOCKS_PER_SEC;
         libererRes(RH1);
         
         // Temps hachage 2
         temps_initH2 = clock();
-        Reseau* RH2 = reconstitueReseauHachage(ch, 50000);
+        Reseau* RH2 = reconstitueReseauHachage(ch, 500);
         temps_finH2 = clock ();
         temps_totH2 = ((double)(temps_finH2 - temps_initH2))/CLOCKS_PER_SEC;
         libererRes(RH2);
         
         // Temps arbre quad
-        // temps_initAQ = clock();
-        // Reseau* RAQ = reconstitueReseauArbre(ch);
-        // temps_finAQ = clock ();
-        // temps_totAQ = ((double)(temps_finAQ - temps_initAQ))/CLOCKS_PER_SEC;
-        // libererRes(RAQ);
+        temps_initAQ = clock();
+        Reseau* RAQ = reconstitueReseauArbre(ch);
+        temps_finAQ = clock ();
+        temps_totAQ = ((double)(temps_finAQ - temps_initAQ))/CLOCKS_PER_SEC;
+        libererRes(RAQ);
 
-        printf("%d\t%f\t%f\t%f\n", i, temps_totC, temps_totH1, temps_totH2);
+        // printf("%d\t%f\t%f\t%f\n", i, temps_totC, temps_totH1, temps_totH2);
 
-        // printf("%d\t%f\t%f\t%f\t%f\n", test, temps_totC, temps_totH1, temps_totH2, temps_totAQ);
+        printf("%d\t%f\t%f\t%f\t%f\n", i, temps_totC, temps_totH1, temps_totH2, temps_totAQ);
     
         libererChaine(ch);
     }

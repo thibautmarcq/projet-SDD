@@ -38,22 +38,18 @@ Noeud* rechercheCreeNoeudHachage(Reseau* R, TableHachage*H, double x, double y){
     double clefH = clef(x,y);
     int hash = fonction_H(clefH, H->tailleMax);
     CellNoeud* cour = H->T[hash];
-    int trouve = 0; // Variable pour détecter si le noeud a été trouvé dans la table
     while(cour){ // Parcours de la liste des noeuds
         if (x==cour->nd->x && y==cour->nd->y){
-            trouve=1; // Noeud trouvé
-            break;
+            return cour->nd; // Noeud trouvé
         }
         cour=cour->suiv;
     }
-    Noeud* n = rechercheCreeNoeudListe(R, x, y);
-    if (!trouve){ // Si le noeud n'est pas trouvé, on le crée et on l'ajoute dans la liste (dans la case de la table)
-        CellNoeud* cell = (CellNoeud*)malloc(sizeof(CellNoeud));
-        cell->nd = n;
-        cell->suiv=H->T[hash];
-        H->T[hash]=cell;
-        (H->nbElement)++; // Augmentation du nombre d'éléments
-    }
+    Noeud* n = creerNoeud(R->nbNoeuds+1, x, y);
+    CellNoeud* cell = (CellNoeud*)malloc(sizeof(CellNoeud));
+    cell->nd = n;
+    cell->suiv=H->T[hash];
+    H->T[hash]=cell;
+    (H->nbElement)++; // Augmentation du nombre d'éléments
     return n;
 }
 

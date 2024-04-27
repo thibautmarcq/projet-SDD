@@ -127,7 +127,12 @@ void insererNoeudArbre(Noeud* n, ArbreQuat** a, ArbreQuat* parent){
 Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, double x, double y){
     /* Recherche et renvoie un noeud de l'arbre a, le crée et le renvoie si inexistant */
     if ((*a) == NULL){ // l'arbre actuel est vide
-        Noeud* newNode = rechercheCreeNoeudListe(R, x, y); // on recherche / crée le noeud dans le reseau
+        Noeud* newNode = creerNoeud(R->nbNoeuds+1, x,y); // on recherche / crée le noeud dans le reseau
+        CellNoeud* newlst = (CellNoeud*)malloc(sizeof(CellNoeud)); // Création de la liste nds
+        newlst->nd = newNode; // Ajout du nd crée dedans
+        newlst->suiv = R->noeuds; // Ajout des noeuds précédents à la suite
+        R->noeuds = newlst; // Ajout de la nvelle liste dans le reseau
+        R->nbNoeuds += 1; // Augmente le nb de nd du reseau
         insererNoeudArbre(newNode, a, parent); // on l'insert dans l'arbre
         return newNode;
     }
@@ -135,27 +140,22 @@ Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, doub
         Noeud* actualNode = (*a)->noeud;
         if ((actualNode->x == x)&&(actualNode->y == y)){ // le noeud que l'on recherche
             return actualNode; 
-        } else { // la feuille ne correspond pas au noeud recherché => on insert le noeud
-            Noeud* newNode = rechercheCreeNoeudListe(R, x, y); // on recherche / crée le noeud dans le reseau
-            insererNoeudArbre(newNode, a, parent); // on l'insert dans l'arbre
-            return newNode;
         } 
-    } else {
     // else ~ cas de base, on navigue dans l'arbre puisqu'on est sur un noeud
-        if ((x < (*a)->xc) && (y > (*a)->yc)){
-            return rechercheCreeNoeudArbre(R, &((*a)->no), *a, x, y);
-        }
-        if ((x < (*a)->xc)&&(y < (*a)->yc)){
-            return rechercheCreeNoeudArbre(R, &((*a)->so), *a, x, y);
-        }
-        if ((x > (*a)->xc)&&(y > (*a)->yc)){
-            return rechercheCreeNoeudArbre(R, &((*a)->ne), *a, x, y);
-        }
-        if ((x > (*a)->xc)&&(y < (*a)->yc)){
-            return rechercheCreeNoeudArbre(R, &((*a)->se), *a, x, y);
-        }
     }
-    return NULL;
+    if ((x < (*a)->xc) && (y > (*a)->yc)){
+        return rechercheCreeNoeudArbre(R, &((*a)->no), *a, x, y);
+    }
+    if ((x < (*a)->xc)&&(y < (*a)->yc)){
+        return rechercheCreeNoeudArbre(R, &((*a)->so), *a, x, y);
+    }
+    if ((x > (*a)->xc)&&(y > (*a)->yc)){
+        return rechercheCreeNoeudArbre(R, &((*a)->ne), *a, x, y);
+    }
+    if ((x > (*a)->xc)&&(y < (*a)->yc)){
+        return rechercheCreeNoeudArbre(R, &((*a)->se), *a, x, y);
+    }
+    return R->noeuds->nd;
 }
 
 Reseau* reconstitueReseauArbre(Chaines* C){

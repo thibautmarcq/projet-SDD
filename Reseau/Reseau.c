@@ -10,6 +10,16 @@
 #include "../SVGwriter/SVGwriter.h"
 #include "Reseau.h"
 
+Noeud * creerNoeud(int num,double x,double y){
+    /* Crée un noeud */
+    Noeud * nd=(Noeud *)malloc(sizeof(Noeud));
+    nd->num=num;
+    nd->x=x;
+    nd->y=y;
+    nd->voisins=NULL;
+    return nd;
+}
+
 Noeud* rechercheCreeNoeudListe(Reseau *R, double x, double y){
     /* Retourne le noeud de coo (x,y) dans le reseau R s'il existe, le crée sinon */
     CellNoeud* lstnoeud = R->noeuds;
@@ -21,11 +31,7 @@ Noeud* rechercheCreeNoeudListe(Reseau *R, double x, double y){
         lstnoeud = lstnoeud->suiv;
     }
     // Noeud non trouvé : création et insertion
-    Noeud* n = (Noeud*)malloc(sizeof(Noeud)); // Création du nd
-    n->num = R->nbNoeuds+1;
-    n->x = x;
-    n->y = y;
-    n->voisins = NULL;
+    Noeud* n = creerNoeud(R->nbNoeuds+1, x,y);
     CellNoeud* newlst = (CellNoeud*)malloc(sizeof(CellNoeud)); // Création de la liste nds
     newlst->nd = n; // Ajout du nd crée dedans
     newlst->suiv = R->noeuds; // Ajout des noeuds précédents à la suite

@@ -48,4 +48,4 @@ ArbreQuat/ArbreQuat.o : ArbreQuat/ArbreQuat.c
 clean:
 	rm -f *.o *~ $(PROGRAMS)
 	rm -f SVGwriter/*.o Chaines/*.o Reseau/*.o Hachage/*.o
-	rm -f *.html
+	rm -f *.html *.txt
