@@ -9,33 +9,28 @@
 #include "../Chaines/Chaine.h"
 #include "../Reseau/Reseau.h"
 
-double max(double a, double b){
-    /* Permet de récupérer le max entre a et b */
-    return (a > b) ? a : b;
-}
 
-double min(double a, double b){
-    /* Permet de récupérer le min entre a et b */
-    return (a < b) ? a : b;
-}
-
-void chaineCoordMinMax(Chaines* C, double* xmin, double* xmax, double* ymin, double* ymax){
+void chaineCoordMinMax(Chaines* C,double* xmin,double* ymin,double *xmax,double *ymax){
     /* Met dans des pointeurs les coordonnées x et y minimales et maximales dans une chaine de points */
-    CellChaine * chaine = C->chaines;
-    *xmax = chaine->points->x;
-    *ymax = chaine->points->x;
-    *xmin = chaine->points->x;
-    *ymin = chaine->points->y;
+    CellChaine *chaine=C->chaines;
     while(chaine){ // Parcourt de la chaine
-        CellPoint *point = chaine->points;
-        while(point->suiv){ // Parcourt des points de la chaine et détermination des max et min
-            *xmax = max(point->x, *xmax);
-            *ymax = max(point->y, *ymax);
-            *xmin = min(point->x, *xmin);
-            *ymin = min(point->y, *ymin);
-            point = point->suiv;
+        CellPoint *points=chaine->points;
+        while(points){ // Parcourt des points de la chaine et détermination des max et min
+            double x=points->x;
+            double y=points->y;
+            if(x<*xmin){
+                *xmin=x;
+            }if(x>*xmax){
+                *xmax=x;
+            }
+            if(y<*ymin){
+                *ymin=y;
+            }if(y>*ymax){
+                *ymax=y;
+            }
+            points=points->suiv;
         }
-        chaine = chaine->suiv;
+        chaine=chaine->suiv;
     }
 }
 
@@ -169,7 +164,7 @@ Reseau* reconstitueReseauArbre(Chaines* C){
     res->noeuds = NULL;
     CellCommodite* com = NULL; 
 
-    double xmin, ymin, xmax, ymax;
+    double xmin=0, ymin=0, xmax=0, ymax=0;
     chaineCoordMinMax(C,&xmin,&ymin,&xmax,&ymax);
     double coteX = xmax-xmin; 
     double coteY = ymax-ymin;
