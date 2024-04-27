@@ -52,9 +52,9 @@ int main(int argc, char** argv){
 
 //     /////////////////////////////
 
-    clock_t temps_initC;
-    clock_t temps_finC;
-    double temps_totC;
+    // clock_t temps_initC;
+    // clock_t temps_finC;
+    // double temps_totC;
     
     clock_t temps_initH1;
     clock_t temps_finH1;
@@ -74,11 +74,11 @@ int main(int argc, char** argv){
     for(int i = 500; i<=5000; i+=500){
         Chaines* ch = generationAleatoire(i, 100, 5000, 5000);
         // Temps chaines
-        temps_initC = clock(); 
-        Reseau* RC = reconstitueReseauListe(ch);
-        temps_finC = clock ();
-        temps_totC = ((double)(temps_finC - temps_initC))/CLOCKS_PER_SEC;
-        libererRes(RC);
+        // temps_initC = clock(); 
+        // Reseau* RC = reconstitueReseauListe(ch);
+        // temps_finC = clock ();
+        // temps_totC = ((double)(temps_finC - temps_initC))/CLOCKS_PER_SEC;
+        // libererRes(RC);
 
         // Temps hachage 1
         temps_initH1 = clock();
@@ -103,7 +103,9 @@ int main(int argc, char** argv){
 
         // printf("%d\t%f\t%f\t%f\n", i, temps_totC, temps_totH1, temps_totH2);
 
+        double temps_totC = 1;
         printf("%d\t%f\t%f\t%f\t%f\n", i, temps_totC, temps_totH1, temps_totH2, temps_totAQ);
+        
     
         libererChaine(ch);
     }
