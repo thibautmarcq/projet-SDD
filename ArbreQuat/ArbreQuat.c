@@ -56,54 +56,35 @@ void insererNoeudArbre(Noeud* n, ArbreQuat** a, ArbreQuat* parent){
         double coteX = parent->coteX/2; // coté divisé par 2
         double coteY = parent->coteY/2;
         double yc, xc;
-        int g = 0,h=0;
-
-        if(n->x <= parent->xc){
-            g = 1;
+        
+        if(n->x < parent->xc){
             xc = parent->xc/2;
         }else{
             xc = parent->xc+coteX/2;
         }
         if (n->y >= parent->yc){
-            h=1;
             yc = parent->yc+coteY/2;
         } else {
             yc = parent->yc/2;
         }
         *a = creerArbreQuat(xc,yc,coteX, coteY);
         (*a)->noeud = n;
-        if(g == 1 && h == 1){
-            parent->no = *a;
-            return;
-        }
-        if(g==1 && h==0){
-            parent->so = *a;
-            return;
-        } 
-        if(g == 0 && h == 0){
-            parent->se = *a;
-            return;
-        } 
-        if(g == 0 && h == 1){
-            parent->ne = *a;
-            return;
-        }
+        return;
     }
     //////////////////
     if((*a)->noeud != NULL){ // Feuille
-        ArbreQuat* b = NULL;
-        ArbreQuat* c = NULL;
-
-        insererNoeudArbre(n, &b,*a);
-        insererNoeudArbre((*a)->noeud, &c,*a);
+        Noeud* c = (*a)->noeud;
         (*a)->noeud = NULL;
+
+        insererNoeudArbre(n, a,parent);
+        insererNoeudArbre(c, a,parent);
         return;
     }
     //////////////////
 
     // else
     // Cellule interne, on regarde dans quelle brancher placer le noeud en fct du centre de l'arbre actuel
-    if ((n->x < (*a)->xc) && (n->y > (*a)->yc)){
+    if ((n->x < (*a)->xc) && (n->y >= (*a)->yc)){
         insererNoeudArbre(n, &((*a)->no), *a);
         return;
     }
@@ -111,11 +92,11 @@ void insererNoeudArbre(Noeud* n, ArbreQuat** a, ArbreQuat* parent){
         insererNoeudArbre(n, &((*a)->so), *a);
         return;
     }
-    if ((n->x > (*a)->xc)&&(n->y > (*a)->yc)){
+    if ((n->x >= (*a)->xc)&&(n->y >= (*a)->yc)){
         insererNoeudArbre(n, &((*a)->ne), *a);
         return;
     }
-    if ((n->x > (*a)->xc)&&(n->y < (*a)->yc)){
+    if ((n->x >= (*a)->xc)&&(n->y < (*a)->yc)){
         insererNoeudArbre(n, &((*a)->se), *a);
         return;
     }
@@ -141,17 +122,17 @@ Noeud* rechercheCreeNoeudArbre(Reseau* R, ArbreQuat** a, ArbreQuat* parent, doub
         } 
     // else ~ cas de base, on navigue dans l'arbre puisqu'on est sur un noeud
     }
-    if ((x < (*a)->xc) && (y > (*a)->yc)){
-        return rechercheCreeNoeudArbre(R, &((*a)->no), *a, x, y);
+    if ((x <= (*a)->xc) && (y >= (*a)->yc)){
+        rechercheCreeNoeudArbre(R, &((*a)->no), *a, x, y);
     }
-    if ((x < (*a)->xc)&&(y < (*a)->yc)){
-        return rechercheCreeNoeudArbre(R, &((*a)->so), *a, x, y);
+    if ((x <= (*a)->xc)&&(y <= (*a)->yc)){
+        rechercheCreeNoeudArbre(R, &((*a)->so), *a, x, y);
     }
-    if ((x > (*a)->xc)&&(y > (*a)->yc)){
-        return rechercheCreeNoeudArbre(R, &((*a)->ne), *a, x, y);
+    if ((x >= (*a)->xc)&&(y >= (*a)->yc)){
+        rechercheCreeNoeudArbre(R, &((*a)->ne), *a, x, y);
     }
-    if ((x > (*a)->xc)&&(y < (*a)->yc)){
-        return rechercheCreeNoeudArbre(R, &((*a)->se), *a, x, y);
+    if ((x >= (*a)->xc)&&(y <= (*a)->yc)){
+        rechercheCreeNoeudArbre(R, &((*a)->se), *a, x, y);
     }
     return R->noeuds->nd;
 }
@@ -171,8 +152,9 @@ Reseau* reconstitueReseauArbre(Chaines* C){
     double xc = xmin + coteX/2.0;
     double yc = ymin + coteY/2.0;
 
-    // ArbreQuat* a =  NULL;
+ 
     ArbreQuat* b = creerArbreQuat(xc,yc,coteX,coteY);
+
 
     CellChaine* chaine = C->chaines;
 
@@ -180,8 +162,8 @@ Reseau* reconstitueReseauArbre(Chaines* C){
         CellPoint* point = chaine->points;
         while(point->suiv){ // Parcours des points
             // Recherches des points dans le réseau pour les attribuer aux commodités
-            Noeud* n1 = rechercheCreeNoeudArbre(res,&b, b ,point->x,point->y);
-            Noeud* n2 = rechercheCreeNoeudArbre(res,&b, b ,point->suiv->x,point->suiv->y);
+            Noeud* n1 = rechercheCreeNoeudArbre(res,&b, NULL ,point->x,point->y);
+            Noeud* n2 = rechercheCreeNoeudArbre(res,&b, NULL ,point->suiv->x,point->suiv->y);
             if(point == chaine->points){ // Premier point de la chaine
                 com = (CellCommodite*)malloc(sizeof(CellCommodite));
                 com->extrA = n1; // noeudA

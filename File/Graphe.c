@@ -1,3 +1,10 @@
+// MONO 3
+// Maëlle LIU 21204734
+// Thibaut MARCQ 21202966
+
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "Graphe.h"
 
 Arete* creerArete(int u, int v){
@@ -74,16 +81,19 @@ Graphe* creerGraphe(Reseau* r){
 
 
 int cheminLePlusCourt(Graphe* g, int u, int v) {
-    int* visite = (int*)calloc(g->nbsom, sizeof(int));
-    int* distance = (int*)calloc(g->nbsom, sizeof(int));
+    /* Renvoie le plus petit nombre d'arêtes entre deux sommets u et v de g */
+    int* visite = (int*)calloc(g->nbsom, sizeof(int)); // tab des sommets visités
+    int* distance = (int*)calloc(g->nbsom, sizeof(int)); // tab des distances entre sommets
 
-    S_file* file = (S_file*)malloc(sizeof(S_file));
+    S_file* file = (S_file*)malloc(sizeof(S_file)); // file des sommets à visiter
     Init_file(file);
+
+    // début à partir de u
     enfile(file, u);
     visite[u] = 1;
     distance[u] = 0;
 
-    while (!estFileVide(file)) {
+    while (!estFileVide(file)) { // tant qu'il y a des sommets à visiter
         int courant = defile(file);
         Cellule_arete* voisins = g->T_som[courant]->L_voisin;
 

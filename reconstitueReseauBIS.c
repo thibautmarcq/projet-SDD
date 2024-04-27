@@ -16,7 +16,7 @@
 int main(int argc, char** argv){
     srand(time(NULL));
     if(argc != 2){
-        printf("Usage: %s <fichier .cha> <1-liste, 2-table de hachage, 3-arbre>\n", argv[0]);
+        printf("Usage: %s <1-liste, 2-table de hachage, 3-arbre>\n", argv[0]);
         return 1;
     }
     
@@ -32,7 +32,7 @@ int main(int argc, char** argv){
     }
 
     if(atoi(argv[1]) == 2){
-        Chaines* ch = generationAleatoire(1, 10, 5000, 5000);
+        Chaines* ch = generationAleatoire(1, 2, 5000, 5000);
         Reseau* R = reconstitueReseauArbre(ch);
         FILE* fwrite = fopen("txtArbreBIS.txt", "w");
         ecrireReseau(R, fwrite);
@@ -40,7 +40,6 @@ int main(int argc, char** argv){
         afficheReseauSVG(R, "afficheReseauArbreBIS");
         libererRes(R);
         libererChaine(ch);
-        
     }
     return 0;
 }

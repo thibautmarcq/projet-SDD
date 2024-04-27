@@ -41,7 +41,7 @@ Noeud* rechercheCreeNoeudListe(Reseau *R, double x, double y){
 }
 
 void rechercheCreeVoisin(Noeud* n1, Noeud*n2){
-    /* Recherche si n2 est présent dans les voisins de n1 si oui renvoie 0 sinon 1*/
+    /* Recherche si n2 est présent dans les voisins de n1 si oui renvoie rien sinon cree le voisin et l'ajoute aux voisins de n1*/
     CellNoeud* voisins = n1->voisins;
     while(voisins){ // On parcours les voisins de n1
         if(voisins->nd == n2){
