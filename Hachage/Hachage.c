@@ -80,18 +80,10 @@ Reseau* reconstitueReseauHachage(Chaines *C, int M){
                 res->commodites = com;
                 com = NULL;
             }
-            if(rechercheVoisin(n1, n2)){ // Si n2 n'est pas encore dans les voisins de n1
-                CellNoeud* voisinA = (CellNoeud*)malloc(sizeof(CellNoeud));
-                voisinA->nd = n2; 
-                voisinA->suiv = n1->voisins;
-                n1->voisins = voisinA;
-            }
-            if(rechercheVoisin(n2, n1)){ // Si n1 n'est pas encore dans les voisins de n2
-                CellNoeud* voisinB = (CellNoeud*)malloc(sizeof(CellNoeud));
-                voisinB->nd = n1; 
-                voisinB->suiv = n2->voisins;
-                n2->voisins = voisinB;
-            }
+            
+            rechercheCreeVoisin(n1,n2); // Si n2 n'est pas encore dans les voisins de n1 le rajoute au voisin de n1 sinon ne fais rien
+            rechercheCreeVoisin(n2,n1); // Si n1 n'est pas encore dans les voisins de n2 le rajoute au voisin de n2 sinon ne fais rien
+
             point = point->suiv;
         }
         chaine = chaine->suiv;

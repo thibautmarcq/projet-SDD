@@ -40,16 +40,20 @@ Noeud* rechercheCreeNoeudListe(Reseau *R, double x, double y){
     return n;
 }
 
-int rechercheVoisin(Noeud* n1, Noeud*n2){
+void rechercheCreeVoisin(Noeud* n1, Noeud*n2){
     /* Recherche si n2 est présent dans les voisins de n1 si oui renvoie 0 sinon 1*/
-    CellNoeud* voisin = n1->voisins;
-    while(voisin){ // On parcours les voisins de n1
-        if(voisin->nd == n2){
-            return 0; // n2 deja dans la liste de voisins de n1
+    CellNoeud* voisins = n1->voisins;
+    while(voisins){ // On parcours les voisins de n1
+        if(voisins->nd == n2){
+            return ; // n2 deja dans la liste de voisins de n1
         }
-        voisin =voisin->suiv;
+        voisins =voisins->suiv;
     }
-    return 1; // Noeud non trouvé dans les voisins
+    // Noeud non trouvé dans les voisins et creation du voisins
+    CellNoeud* voisin = (CellNoeud*)malloc(sizeof(CellNoeud));
+    voisin->nd = n2; 
+    voisin->suiv = n1->voisins;
+    n1->voisins = voisin;
 }
 
 
@@ -81,21 +85,8 @@ Reseau* reconstitueReseauListe(Chaines *C){
                 com = NULL;
             }
 
-            if(rechercheVoisin(n1,n2)){ // Si n2 n'est pas encore dans les voisins de n1
-                CellNoeud* voisinA = (CellNoeud*)malloc(sizeof(CellNoeud));
-                voisinA->nd = n2; 
-                voisinA->suiv = n1->voisins;
-                n1->voisins = voisinA;
-            
-            }
-
-            if(rechercheVoisin(n2,n1)){ // Si n1 n'est pas encore dans les voisins de n2
-                CellNoeud* voisinB = (CellNoeud*)malloc(sizeof(CellNoeud));
-                voisinB->nd = n1; 
-                voisinB->suiv = n2->voisins;
-                n2->voisins = voisinB;
-            
-            }
+            rechercheCreeVoisin(n1,n2); // Si n2 n'est pas encore dans les voisins de n1 le rajoute au voisin de n1 sinon ne fais rien
+            rechercheCreeVoisin(n2,n1); // Si n1 n'est pas encore dans les voisins de n2 le rajoute au voisin de n2 sinon ne fais rien
 
             point = point->suiv;
         }
