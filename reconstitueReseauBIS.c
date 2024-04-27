@@ -32,16 +32,15 @@ int main(int argc, char** argv){
     }
 
     if(atoi(argv[1]) == 2){
-        Chaines* ch = generationAleatoire(500, 100, 5000, 5000);
-        Reseau* R = reconstitueReseauHachage(ch, 5000);
-        FILE* fwrite = fopen("txtHachageBIS.txt", "w");
+        Chaines* ch = generationAleatoire(1, 10, 5000, 5000);
+        Reseau* R = reconstitueReseauArbre(ch);
+        FILE* fwrite = fopen("txtArbreBIS.txt", "w");
         ecrireReseau(R, fwrite);
         fclose(fwrite);
-        afficheReseauSVG(R, "afficheReseauHachageBIS");
+        afficheReseauSVG(R, "afficheReseauArbreBIS");
         libererRes(R);
         libererChaine(ch);
         
     }
-
     return 0;
 }

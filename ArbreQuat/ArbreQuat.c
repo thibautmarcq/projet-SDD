@@ -53,11 +53,11 @@ ArbreQuat* creerArbreQuat(double xc, double yc, double coteX, double coteY){
 
 void insererNoeudArbre(Noeud* n, ArbreQuat** a, ArbreQuat* parent){
     if (*a==NULL){ // Arbre vide
-        double xc,yc;
         double coteX = parent->coteX/2; // coté divisé par 2
         double coteY = parent->coteY/2;
-        int h = 0, g = 0; // booléens utilisés pour placer le noeud
-        
+        double yc, xc;
+        int g = 0,h=0;
+
         if(n->x <= parent->xc){
             g = 1;
             xc = parent->xc/2;
@@ -171,7 +171,7 @@ Reseau* reconstitueReseauArbre(Chaines* C){
     double xc = xmin + coteX/2.0;
     double yc = ymin + coteY/2.0;
 
-    ArbreQuat* a =  NULL;
+    // ArbreQuat* a =  NULL;
     ArbreQuat* b = creerArbreQuat(xc,yc,coteX,coteY);
 
     CellChaine* chaine = C->chaines;
@@ -180,8 +180,8 @@ Reseau* reconstitueReseauArbre(Chaines* C){
         CellPoint* point = chaine->points;
         while(point->suiv){ // Parcours des points
             // Recherches des points dans le réseau pour les attribuer aux commodités
-            Noeud* n1 = rechercheCreeNoeudArbre(res,&a, b ,point->x,point->y);
-            Noeud* n2 = rechercheCreeNoeudArbre(res,&a, b ,point->suiv->x,point->suiv->y);
+            Noeud* n1 = rechercheCreeNoeudArbre(res,&b, b ,point->x,point->y);
+            Noeud* n2 = rechercheCreeNoeudArbre(res,&b, b ,point->suiv->x,point->suiv->y);
             if(point == chaine->points){ // Premier point de la chaine
                 com = (CellCommodite*)malloc(sizeof(CellCommodite));
                 com->extrA = n1; // noeudA
@@ -192,7 +192,7 @@ Reseau* reconstitueReseauArbre(Chaines* C){
                 res->commodites = com;
                 com = NULL;
             }
-            
+
             rechercheCreeVoisin(n1,n2); // Si n2 n'est pas encore dans les voisins de n1 le rajoute au voisin de n1 sinon ne fais rien
             rechercheCreeVoisin(n2,n1); // Si n1 n'est pas encore dans les voisins de n2 le rajoute au voisin de n2 sinon ne fais rien
 

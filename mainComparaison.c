@@ -70,7 +70,7 @@ int main(int argc, char** argv){
     
     srand(time(NULL));
 
-    printf("i\tChaine\tHachage50\tHachage500\tArbre\n");
+    printf("i\tChaine\tHachage500\tHachage5000\tArbre\n");
     for(int i = 500; i<=5000; i+=500){
         Chaines* ch = generationAleatoire(i, 100, 5000, 5000);
         // Temps chaines
@@ -82,14 +82,14 @@ int main(int argc, char** argv){
 
         // Temps hachage 1
         temps_initH1 = clock();
-        Reseau* RH1 = reconstitueReseauHachage(ch, 50);
+        Reseau* RH1 = reconstitueReseauHachage(ch, 500);
         temps_finH1 = clock ();
         temps_totH1 = ((double)(temps_finH1 - temps_initH1))/CLOCKS_PER_SEC;
         libererRes(RH1);
         
         // Temps hachage 2
         temps_initH2 = clock();
-        Reseau* RH2 = reconstitueReseauHachage(ch, 500);
+        Reseau* RH2 = reconstitueReseauHachage(ch, 5000);
         temps_finH2 = clock ();
         temps_totH2 = ((double)(temps_finH2 - temps_initH2))/CLOCKS_PER_SEC;
         libererRes(RH2);

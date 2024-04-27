@@ -126,19 +126,44 @@ void afficheChainesSVG(Chaines *C, char* nomInstance){
     SVGfinalize(&svg);
 }
 
-double longueurChaine(CellChaine* c){
+// double longueurChaine(CellChaine* c){
+//     /* Calcule la longueur d'une chaine (distance entre ses points)*/
+//     CellPoint* cellPt = c->points;
+//     double res=0;
+//     CellPoint* prev = NULL;
+//     while(cellPt){ // Parcours les points
+//         if (prev!=NULL){ // Si l'element n'est pas le premier
+//             res+= sqrt(pow(cellPt->x-prev->x,2)+pow(cellPt->y-prev->y,2)); // Calcul de la distance entre 2pts (avant et actuel)
+//         }
+//         prev=cellPt;
+//         cellPt=cellPt->suiv;
+//     }
+//     return res;
+// }
+
+double longueurChaine(CellChaine* cellCh) {
     /* Calcule la longueur d'une chaine (distance entre ses points)*/
-    CellPoint* cellPt = c->points;
-    double res=0;
-    CellPoint* prev = NULL;
-    while(cellPt){ // Parcours les points
-        if (prev!=NULL){ // Si l'element n'est pas le premier
-            res+= sqrt(pow(cellPt->x-prev->x,2)+pow(cellPt->y-prev->y,2)); // Calcul de la distance entre 2pts (avant et actuel)
-        }
-        prev=cellPt;
-        cellPt=cellPt->suiv;
+    // Si la chaine est nulle ou ne contient pas au moins deux points, retourne 0.0
+    if (cellCh == NULL || cellCh->points == NULL || cellCh->points->suiv == NULL) {
+        return 0.0;
     }
-    return res;
+
+    double longueurTotale = 0.0;
+    CellPoint* pointPrecedent = cellCh->points;
+    CellPoint* pointCourant = pointPrecedent->suiv;
+
+    // Parcours les points de la chaine
+    while (pointCourant) {
+        double dx = pointCourant->x - pointPrecedent->x;
+        double dy = pointCourant->y - pointPrecedent->y;
+        // Ajoute la distance entre le point courant et le point précédent à la longueur totale
+        longueurTotale += sqrt(dx * dx + dy * dy);
+
+        pointPrecedent = pointCourant;
+        pointCourant = pointCourant->suiv;
+    }
+
+    return longueurTotale;
 }
 
 double longueurTotale(Chaines* C){
