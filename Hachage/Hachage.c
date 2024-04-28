@@ -8,7 +8,7 @@
 #include <math.h>
 
 double clef(double x, double y){
-    /* Fonction pour obtenir la clef d'un noeud */
+    /* Fonction pour obtenir la clefH d'un noeud */
     return y+(x+y)*(x+y+1)/2;
 }
 // 4.2  La fonction clé donnée nous semble appropriée. 
@@ -37,21 +37,33 @@ Noeud* rechercheCreeNoeudHachage(Reseau* R, TableHachage*H, double x, double y){
     /* Fonction qui retourne un Noeud du réseau R, correspondant au point (x,y) dans la table de hachage H */
     double clefH = clef(x,y);
     int hash = fonction_H(clefH, H->tailleMax);
-    CellNoeud* cour = H->T[hash];
+
+    CellNoeud* cour = H->T[hash]; // on regarde dans la bonne case du tab
     while(cour){ // Parcours de la liste des noeuds
-        if (x==cour->nd->x && y==cour->nd->y){
+        if (x==cour->nd->x && y==cour->nd->y){ // si on tombe sur le bon noeud
             return cour->nd; // Noeud trouvé
         }
         cour=cour->suiv;
     }
+    // Noeud pas trouvé : création et ajout dans un cellNoeud
     Noeud* n = creerNoeud(R->nbNoeuds+1, x, y);
     CellNoeud* cell = (CellNoeud*)malloc(sizeof(CellNoeud));
     cell->nd = n;
+    // ajout en tête
     cell->suiv=H->T[hash];
     H->T[hash]=cell;
-    (H->nbElement)++; // Augmentation du nombre d'éléments
+    (H->nbElement)++; // Augmentation du nombre d'éléments de la table
+
+    // Ajout du noeud au réseau
+    CellNoeud* cellR = (CellNoeud*)malloc(sizeof(CellNoeud));
+    cellR->nd = n;
+    cellR->suiv = R->noeuds;
+    R->noeuds = cellR;
+    R->nbNoeuds++;
+
     return n;
 }
+
 
 Reseau* reconstitueReseauHachage(Chaines *C, int M){
     Reseau* res = (Reseau*)malloc(sizeof(Reseau));
@@ -94,11 +106,12 @@ Reseau* reconstitueReseauHachage(Chaines *C, int M){
 
 
 void libererHachage(TableHachage* tab) {
-    if (tab != NULL) {
-        if (tab->T != NULL) {
+    /* Libère une table de hachage tab */
+    if (tab != NULL) { 
+        if (tab->T != NULL) { // condition tab non NULL
             for (int i = 0; i < tab->tailleMax; i++) {
                 CellNoeud* current = tab->T[i];
-                while (current != NULL) {
+                while (current) {
                     CellNoeud* next = current->suiv;
                     free(current);
                     current = next;

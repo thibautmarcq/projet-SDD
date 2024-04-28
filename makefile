@@ -8,7 +8,7 @@ CC = gcc
 
 PROGRAMS = chaineMain reconstitueReseau mainComparaison reconstitueReseauBIS mainGraphe
 
-.PHONY:	all clean
+.PHONY:	all clean resclean
 
 all: $(PROGRAMS)
 
@@ -58,4 +58,7 @@ File/Struct_File.o : File/Struct_File.c
 clean:
 	rm -f *.o *~ $(PROGRAMS)
 	rm -f SVGwriter/*.o Chaines/*.o Reseau/*.o Hachage/*.o ArbreQuat/*.o File/*.o
+	rm -f *.html *.txt
+	
+resclean:
 	rm -f *.html *.txt
