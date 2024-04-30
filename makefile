@@ -21,13 +21,8 @@ reconstitueReseau:  SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hacha
 mainComparaison: SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hachage/Hachage.o ArbreQuat/ArbreQuat.o mainComparaison.c
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
-<<<<<<< HEAD
 mainGraphe: Graphe/Struct_File.o Graphe/Graphe.o Reseau/Reseau.o SVGwriter/SVGwriter.o Chaines/Chaine.o ArbreQuat/ArbreQuat.o mainGraphe.c
 	$(CC) -o $@ $(CFLAGS) $^ -lm
-=======
-# mainGraphe: Graphe/Struct_File.o Graphe/Graphe.o mainGraphe.c
-# 	$(CC) -o $@ $(CFLAGS) $^
->>>>>>> 37a071160f84418927dc4554b4edb7ddd5c5071c
 
 ####
 
