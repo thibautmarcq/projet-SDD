@@ -6,7 +6,7 @@ CFLAGS = -g -Wall -Wextra -pedantic -Wno-unused-parameter
 # CFLAGS = -g -Wno-unused-parameter
 CC = gcc
 
-PROGRAMS = chaineMain reconstitueReseau mainComparaison reconstitueReseauBIS mainGraphe
+PROGRAMS = chaineMain reconstitueReseau mainComparaison mainGraphe
 
 .PHONY:	all clean resclean
 
@@ -21,10 +21,7 @@ reconstitueReseau:  SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hacha
 mainComparaison: SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hachage/Hachage.o ArbreQuat/ArbreQuat.o mainComparaison.c
 	$(CC) -o $@ $(CFLAGS) $^ -lm
 
-reconstitueReseauBIS:  SVGwriter/SVGwriter.o Chaines/Chaine.o Reseau/Reseau.o Hachage/Hachage.o ArbreQuat/ArbreQuat.o reconstitueReseauBIS.c
-	$(CC) -o $@ $(CFLAGS) $^ -lm
-
-mainGraphe: File/Struct_File.o File/Graphe.o mainGraphe.c
+mainGraphe: Graphe/Struct_File.o Graphe/Graphe.o mainGraphe.c
 	$(CC) -o $@ $(CFLAGS) $^
 
 ####
@@ -44,10 +41,10 @@ Hachage/Hachage.o : Hachage/Hachage.c
 ArbreQuat/ArbreQuat.o : ArbreQuat/ArbreQuat.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-File/Graphe.o : File/Graphe.c
+Graphe/Graphe.o : File/Graphe.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-File/Struct_File.o : File/Struct_File.c
+Graphe/Struct_File.o : File/Struct_File.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 #Ou plus simplement

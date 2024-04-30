@@ -115,6 +115,9 @@ int nbLiaisons(Reseau *R){
 
 int nbCommodites(Reseau *R){
     /* Renvoie le nombre de commodités d'un réseau (cable entiers, sans compter les liaisons au milieu) */
+    if(R == NULL){
+        return 0;
+    }
     CellCommodite* cellComm = R->commodites;
     int nbCommodites=0;
     while (cellComm){ // On parcourt les commodites et on les compte
