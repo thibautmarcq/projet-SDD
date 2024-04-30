@@ -61,7 +61,7 @@ Graphe* creerGraphe(Reseau* r){
     for (int i = 0; i < g->nbsom; i++, nd = nd->suiv){
         g->T_som[i] = creerSommet(i, nd->nd->x, nd->nd->y);
         map[nd->nd->num] = i;
-        for(int j = 0, k = 0 ; j < g->nbcommod || k >= 2; j++){
+        for(int j = 0, k = 0 ; j < g->nbcommod && k < 2; j++){
             if(nd->nd == com->extrA){
                 g->T_commod[j].e1 = i; 
                 k++;
