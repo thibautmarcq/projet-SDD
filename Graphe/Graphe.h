@@ -42,4 +42,6 @@ Commod *creerCommod(int e1, int e2);
 Graphe* creerGraphe(Reseau* r);
 int cheminLePlusCourt(Graphe* g, int u, int v);
 
+
+void afficherGraphe(Graphe* graphe);
 #endif
