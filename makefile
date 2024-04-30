@@ -41,10 +41,10 @@ Hachage/Hachage.o : Hachage/Hachage.c
 ArbreQuat/ArbreQuat.o : ArbreQuat/ArbreQuat.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-Graphe/Graphe.o : File/Graphe.c
+Graphe/Graphe.o : Graphe/Graphe.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-Graphe/Struct_File.o : File/Struct_File.c
+Graphe/Struct_File.o : Graphe/Struct_File.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 #Ou plus simplement

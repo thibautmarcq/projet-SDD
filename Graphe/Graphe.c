@@ -54,11 +54,23 @@ Graphe* creerGraphe(Reseau* r){
 
     int* map = (int *)malloc((r->nbNoeuds + 1) * sizeof(int));
 
-    // Initialisation des sommets
+    CellCommodite* com = r->commodites;
+
+    // Initialisation des sommets et des commodites
     CellNoeud* nd = r->noeuds;
     for (int i = 0; i < g->nbsom; i++, nd = nd->suiv){
         g->T_som[i] = creerSommet(i, nd->nd->x, nd->nd->y);
         map[nd->nd->num] = i;
+        for(int j = 0, k = 0 ; j < g->nbcommod || k >= 2; j++){
+            if(nd->nd == com->extrA){
+                g->T_commod[j].e1 = i; 
+                k++;
+            }
+            if(nd->nd == com->extrB){
+                g->T_commod[j].e2 = i;
+                k++; 
+            }
+        }
     }
 
     // Initialisation des arêtes
@@ -77,13 +89,6 @@ Graphe* creerGraphe(Reseau* r){
             }
         }
     }
-
-    // Initialisation des commodites
-    CellCommodite* com = r->commodites;
-    for(int i = 0; i<g->nbcommod; i++){
-        g->T_commod[i] = com;
-        com = com->suiv;
-    };
 
     free(map);
     return g;
