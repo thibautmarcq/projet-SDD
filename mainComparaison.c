@@ -1,3 +1,7 @@
+// MONO 3
+// Maëlle LIU 21204734
+// Thibaut MARCQ 21202966
+
 #include "Chaines/Chaine.h"
 #include "Hachage/Hachage.h"
 #include "ArbreQuat/ArbreQuat.h"

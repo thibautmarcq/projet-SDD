@@ -41,7 +41,6 @@ Sommet* creerSommet(int num, int x, int y);
 Commod *creerCommod(int e1, int e2);
 Graphe* creerGraphe(Reseau* r);
 int cheminLePlusCourt(Graphe* g, int u, int v);
+void libererGraphe(Graphe* g);
 
-
-void afficherGraphe(Graphe* graphe);
 #endif

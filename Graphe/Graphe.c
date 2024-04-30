@@ -136,3 +136,20 @@ int cheminLePlusCourt(Graphe* g, int u, int v) {
     free(file);
     return -1; // retourne -1 s'il n'y a pas de chemin entre u et v
 }
+
+void libererGraphe(Graphe* g){
+    for (int i = 0; i < g->nbsom; i++){
+        Cellule_arete* tmp;
+        Cellule_arete* voisin = g->T_som[i]->L_voisin;
+        while(voisin){
+            free(voisin->a);
+            tmp = voisin->suiv;
+            free(voisin);
+            voisin = tmp;
+        }
+        free(g->T_som[i]);
+    }
+    free(g->T_som);
+    free(g->T_commod);
+    free(g);
+}
