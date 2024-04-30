@@ -1,3 +1,7 @@
+// MONO 3
+// Maëlle LIU 21204734
+// Thibaut MARCQ 21202966
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "Struct_File.h"

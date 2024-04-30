@@ -35,4 +35,11 @@ typedef struct{
     Commod* T_commod; /* Tableau des commodites */
 } Graphe;
 
+Arete* creerArete(int u, int v);
+Cellule_arete* creerCelluleArete(Arete* ar);
+Sommet* creerSommet(int num, int x, int y);
+Commod *creerCommod(int e1, int e2);
+Graphe* creerGraphe(Reseau* r);
+int cheminLePlusCourt(Graphe* g, int u, int v);
+
 #endif
